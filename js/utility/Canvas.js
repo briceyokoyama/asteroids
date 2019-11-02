@@ -16,5 +16,11 @@ export default {
   },
   clear() {
     context.clearRect(0, 0, 1e9, 1e9)
+  },
+  width() {
+    return canvas.width
+  },
+  height() {
+    return canvas.height
   }
 }
