@@ -4,17 +4,17 @@ export default class MovingObject {
   constructor(position, velocity) {
     this.position = position
     this.velocity = velocity
-    this.radius = 20;
+    this.radius = 20
   }
 
-  static createRandom() {
+  static createAtEdge() {
     const position = {
-      x: Math.random()*500 + 0.1,
-      y: Math.random()*500 + 0.1,
+      x: 20,
+      y: Math.random()*500
     }
     const velocity = {
-      x: Math.random()*10 - 5,
-      y: Math.random()*10 - 5,
+      x: Math.random()*5,
+      y: Math.random()*10 - 5
     }
 
     return new MovingObject(position, velocity)
@@ -31,10 +31,10 @@ export default class MovingObject {
 
   outOfBounds() {
     return (
-      this.position.x + this.radius >= Canvas.width()
-      || this.position.x - this.radius <= 0
-      || this.position.y - this.radius <= 0
-      || this.position.y + this.radius >= Canvas.height()
+      this.position.x + this.radius > Canvas.width()
+      || this.position.x - this.radius < 0
+      || this.position.y - this.radius < 0
+      || this.position.y + this.radius > Canvas.height()
     )
   }
 }

@@ -41,7 +41,7 @@ export default class Game {
 
   repopulateAsteroids() {
     while (this.asteroids.length < MIN_ASTEROIDS) {
-      this.asteroids.push(MovingObject.createRandom())
+      this.asteroids.push(MovingObject.createAtEdge())
     }
   }
 }
