@@ -1,9 +1,9 @@
-import Canvas from "../utility/Canvas.js";
+import Canvas from '../utility/Canvas.js'
 
 export default class MovingObject {
   constructor(position, velocity) {
-    this.position = position;
-    this.velocity = velocity;
+    this.position = position
+    this.velocity = velocity
   }
 
   static createRandom() {
@@ -16,12 +16,12 @@ export default class MovingObject {
       y: Math.random()*10 - 5,
     }
 
-    return new MovingObject(position, velocity);
+    return new MovingObject(position, velocity)
   }
 
   move() {
-    this.position.x += this.velocity.x;
-    this.position.y += this.velocity.y;
+    this.position.x += this.velocity.x
+    this.position.y += this.velocity.y
   }
 
   draw() {
