@@ -30,11 +30,38 @@ export default class MovingObject {
   }
 
   outOfBounds() {
-    return (
-      this.position.x + this.radius > Canvas.width()
-      || this.position.x - this.radius < 0
-      || this.position.y - this.radius < 0
-      || this.position.y + this.radius > Canvas.height()
-    )
+    return this.outOfBoundsDirection()
+  }
+
+  outOfBoundsDirection() {
+    if (this.position.x + this.radius > Canvas.width()) return 'E'
+    if (this.position.x - this.radius < 0) return 'W'
+    if (this.position.y + this.radius > Canvas.height()) return 'S'
+    if (this.position.y - this.radius < 0) return 'N'
+    return false
+  }
+
+  wrap() {
+    const outOfBoundsDirection = this.outOfBounds()
+
+    if (!outOfBoundsDirection) return
+
+    switch (outOfBoundsDirection) {
+    case 'N':
+      this.position.y = Canvas.height() - this.radius
+      break
+    case 'S':
+      this.position.y = this.radius
+      break
+    case 'E':
+      this.position.x = this.radius
+      break
+    case 'W':
+      this.position.x = Canvas.width() - this.radius
+      break
+    default:
+      break
+    }
+
   }
 }
