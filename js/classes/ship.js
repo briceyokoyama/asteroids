@@ -1,11 +1,14 @@
 import MovingObject from './MovingObject.js'
 import Canvas from '../utility/Canvas.js'
+import key from 'keymaster'
 
 export default class Ship extends MovingObject {
   constructor(position, velocity) {
     super(position, velocity)
-    this.direction = 3.14/2
+    this.direction = 0
     this.color = 'orange'
+
+    this.move = this.move.bind(this)
   }
 
   draw() {
@@ -21,5 +24,28 @@ export default class Ship extends MovingObject {
       color: this.color,
       radius: 5
     })
+  }
+
+  move() {
+    if (key.isPressed('left')) this.direction -= 3.14/150
+    if (key.isPressed('right')) this.direction += 3.14/150
+    
+    const { x: deltaX, y: deltaY } = this.getAcceleration()
+
+    this.velocity.x += deltaX
+    this.velocity.y += deltaY
+
+    this.position.x += this.velocity.x
+    this.position.y += this.velocity.y
+  }
+
+  getAcceleration() {
+    if (key.isPressed('up')) {
+      return {
+        x: 0.2*Math.cos(this.direction),
+        y: 0.2*Math.sin(this.direction)
+      }
+    }
+    return {x: 0, y: 0}
   }
 }
