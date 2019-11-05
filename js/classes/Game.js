@@ -3,7 +3,7 @@ import MovingObject from './MovingObject.js'
 import Ship from './ship.js'
 import key from 'keymaster'
 
-const MIN_ASTEROIDS = 100
+const MIN_ASTEROIDS = 10
 
 export default class Game {
   constructor() {
@@ -16,7 +16,9 @@ export default class Game {
     this.tick = this.tick.bind(this)
     this.removeOutOfBounds = this.removeOutOfBounds.bind(this)
     this.repopulateAsteroids = this.repopulateAsteroids.bind(this)
-    this.bindHandlers = this.bindHandlers.bind(this);
+    this.checkCollisions = this.checkCollisions.bind(this)
+    this.handleCollisions = this.handleCollisions.bind(this)
+    this.bindHandlers = this.bindHandlers.bind(this)
     this.bindHandlers()
   }
 
@@ -38,6 +40,8 @@ export default class Game {
     this.draw()
     this.removeOutOfBounds()
     this.repopulateAsteroids()
+    this.checkCollisions()
+    this.handleCollisions()
     requestAnimationFrame(this.tick)
   }
 
@@ -61,4 +65,21 @@ export default class Game {
       this.bullets.push(this.ship.shoot())
     })
   }
+
+  checkCollisions() {
+    this.asteroids.forEach(asteroid => {
+      this.bullets.forEach(bullet => {
+        if (asteroid.isCollidedWith(bullet)) {
+          asteroid.hit = true
+          bullet.hit = true
+        }
+      })
+    })
+  }
+
+  handleCollisions() {
+    this.asteroids = this.asteroids.filter(asteroid => !asteroid.hit)
+    this.bullets = this.bullets.filter(bullet => !bullet.hit)
+  }
+
 }

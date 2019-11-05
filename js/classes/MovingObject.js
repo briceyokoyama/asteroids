@@ -7,6 +7,7 @@ export default class MovingObject {
     this.velocity = new Vec2(velocity)
     this.color = color
     this.radius = radius
+    this.hit = false
   }
 
   static createAtEdge() {
@@ -63,6 +64,10 @@ export default class MovingObject {
     default:
       break
     }
-
   }
+
+  isCollidedWith(otherMovingObject) {
+    return (this.radius + otherMovingObject.radius) >= this.position.distance(otherMovingObject.position)
+  }
+
 }
