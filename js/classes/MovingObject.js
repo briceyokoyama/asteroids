@@ -2,25 +2,12 @@ import Canvas from '../utility/Canvas.js'
 import Vec2 from '../classes/Vec2.js'
 
 export default class MovingObject {
-  constructor(position, velocity, color = 'white', radius = 20) {
+  constructor(position, velocity, color = 'white', radius) {
     this.position = new Vec2(position)
     this.velocity = new Vec2(velocity)
     this.color = color
     this.radius = radius
     this.hit = false
-  }
-
-  static createAtEdge() {
-    const position = {
-      x: 20,
-      y: Math.random()*500
-    }
-    const velocity = {
-      x: Math.random()*2,
-      y: Math.random()*4 - 2
-    }
-
-    return new MovingObject(position, velocity)
   }
 
   move() {
@@ -68,6 +55,11 @@ export default class MovingObject {
 
   isCollidedWith(otherMovingObject) {
     return (this.radius + otherMovingObject.radius) >= this.position.distance(otherMovingObject.position)
+  }
+
+  handleCollision() {
+    if (this.hit) return undefined
+    return this
   }
 
 }

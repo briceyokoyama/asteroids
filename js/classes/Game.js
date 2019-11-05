@@ -1,7 +1,8 @@
 import Canvas from '../utility/Canvas.js'
-import MovingObject from './MovingObject.js'
 import Ship from './ship.js'
 import key from 'keymaster'
+import Asteroid from './Asteroid.js'
+import lodash from 'lodash'
 
 const MIN_ASTEROIDS = 10
 
@@ -62,7 +63,7 @@ export default class Game {
 
   repopulateAsteroids() {
     while (this.asteroids.length < MIN_ASTEROIDS) {
-      this.asteroids.push(MovingObject.createAtEdge())
+      this.asteroids.push(Asteroid.createAtEdge())
     }
   }
 
@@ -90,8 +91,8 @@ export default class Game {
     if (this.ship.hit) {
       this.stop()
     }
-    this.asteroids = this.asteroids.filter(asteroid => !asteroid.hit)
-    this.bullets = this.bullets.filter(bullet => !bullet.hit)
+    this.asteroids = lodash.compact(lodash.flatten(this.asteroids.map(asteroid => asteroid.handleCollision())))
+    this.bullets = lodash.compact(lodash.flatten(this.bullets.map(bullet => bullet.handleCollision())))
   }
 
 }

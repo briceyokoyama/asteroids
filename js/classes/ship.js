@@ -3,10 +3,11 @@ import Canvas from '../utility/Canvas.js'
 import key from 'keymaster'
 
 export default class Ship extends MovingObject {
-  constructor(position, velocity) {
+  constructor(position, velocity, color = 'orange', radius = 20) {
     super(position, velocity)
     this.direction = 0
-    this.color = 'orange'
+    this.color = color
+    this.radius = radius
   }
 
   draw() {
