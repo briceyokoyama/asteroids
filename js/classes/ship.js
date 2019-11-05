@@ -43,4 +43,19 @@ export default class Ship extends MovingObject {
     }
     return {x: 0, y: 0}
   }
+
+  shoot() {
+    return new MovingObject(
+      {
+        x: this.position.x + (this.radius + 5)*Math.cos(this.direction),
+        y: this.position.y + (this.radius + 5)*Math.sin(this.direction)
+      },
+      {
+        x: 10*Math.cos(this.direction),
+        y: 10*Math.sin(this.direction)
+      },
+      'yellow',
+      2
+    )
+  }
 }

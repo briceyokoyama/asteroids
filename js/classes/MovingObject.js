@@ -2,10 +2,11 @@ import Canvas from '../utility/Canvas.js'
 import Vec2 from '../classes/Vec2.js'
 
 export default class MovingObject {
-  constructor(position, velocity) {
+  constructor(position, velocity, color = 'white', radius = 20) {
     this.position = new Vec2(position)
     this.velocity = new Vec2(velocity)
-    this.radius = 20
+    this.color = color
+    this.radius = radius
   }
 
   static createAtEdge() {
@@ -26,7 +27,7 @@ export default class MovingObject {
   }
 
   draw() {
-    Canvas.drawCircle({ x: this.position.x, y: this.position.y, radius: this.radius })
+    Canvas.drawCircle({ x: this.position.x, y: this.position.y, radius: this.radius, color: this.color })
   }
 
   outOfBounds() {
