@@ -1,9 +1,10 @@
 import Canvas from '../utility/Canvas.js'
+import Vec2 from '../classes/Vec2.js'
 
 export default class MovingObject {
   constructor(position, velocity) {
-    this.position = position
-    this.velocity = velocity
+    this.position = new Vec2(position)
+    this.velocity = new Vec2(velocity)
     this.radius = 20
   }
 
@@ -21,8 +22,7 @@ export default class MovingObject {
   }
 
   move() {
-    this.position.x += this.velocity.x
-    this.position.y += this.velocity.y
+    this.position = this.position.add(this.velocity)
   }
 
   draw() {

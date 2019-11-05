@@ -7,8 +7,6 @@ export default class Ship extends MovingObject {
     super(position, velocity)
     this.direction = 0
     this.color = 'orange'
-
-    this.move = this.move.bind(this)
   }
 
   draw() {
@@ -29,14 +27,10 @@ export default class Ship extends MovingObject {
   move() {
     if (key.isPressed('left')) this.direction -= 3.14/150
     if (key.isPressed('right')) this.direction += 3.14/150
-    
-    const { x: deltaX, y: deltaY } = this.getAcceleration()
 
-    this.velocity.x += deltaX
-    this.velocity.y += deltaY
+    this.velocity = this.velocity.add(this.getAcceleration())
 
-    this.position.x += this.velocity.x
-    this.position.y += this.velocity.y
+    this.position = this.position.add(this.velocity)
     this.wrap()
   }
 
