@@ -16,8 +16,8 @@ export default class MovingObject {
       y: Math.random()*500
     }
     const velocity = {
-      x: Math.random()*5,
-      y: Math.random()*10 - 5
+      x: Math.random()*2,
+      y: Math.random()*4 - 2
     }
 
     return new MovingObject(position, velocity)

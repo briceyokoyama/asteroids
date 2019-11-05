@@ -10,6 +10,7 @@ export default class Game {
     this.asteroids = []
     this.ship = new Ship({x: 250, y: 250}, {x: 0, y: 0})
     this.bullets = []
+    this.running = true
     
     this.move = this.move.bind(this)
     this.draw = this.draw.bind(this)
@@ -35,6 +36,7 @@ export default class Game {
   }
 
   tick() {
+    if (!this.running) return
     Canvas.clear()
     this.move()
     this.draw()
@@ -46,7 +48,11 @@ export default class Game {
   }
 
   start() {
+    this.running = true
+  }
 
+  stop() {
+    this.running = false
   }
 
   removeOutOfBounds() {
@@ -68,6 +74,9 @@ export default class Game {
 
   checkCollisions() {
     this.asteroids.forEach(asteroid => {
+      if (asteroid.isCollidedWith(this.ship)) {
+        this.ship.hit = true
+      }
       this.bullets.forEach(bullet => {
         if (asteroid.isCollidedWith(bullet)) {
           asteroid.hit = true
@@ -78,6 +87,9 @@ export default class Game {
   }
 
   handleCollisions() {
+    if (this.ship.hit) {
+      this.stop()
+    }
     this.asteroids = this.asteroids.filter(asteroid => !asteroid.hit)
     this.bullets = this.bullets.filter(bullet => !bullet.hit)
   }

@@ -25,8 +25,8 @@ export default class Ship extends MovingObject {
   }
 
   move() {
-    if (key.isPressed('left')) this.direction -= 3.14/150
-    if (key.isPressed('right')) this.direction += 3.14/150
+    if (key.isPressed('left')) this.direction -= 3.14/75
+    if (key.isPressed('right')) this.direction += 3.14/75
 
     this.velocity = this.velocity.add(this.getAcceleration())
 
@@ -39,6 +39,11 @@ export default class Ship extends MovingObject {
       return {
         x: 0.2*Math.cos(this.direction),
         y: 0.2*Math.sin(this.direction)
+      }
+    } else if (key.isPressed('down')) {
+      return {
+        x: -0.2*Math.cos(this.direction),
+        y: -0.2*Math.sin(this.direction)
       }
     }
     return {x: 0, y: 0}
